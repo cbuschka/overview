@@ -1,0 +1,28 @@
+{
+  "name": "healthier-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": "/",
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha.6",
+    "dexie": "^1.5.1",
+    "font-awesome": "~4.7.0",
+    "font-awesome-webpack": "0.0.5-beta.2",
+    "less": "^2.7.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
+    "react-transition-group": "^1.1.3",
+    "reactstrap": "^4.6.2",
+    "xhr": "^2.4.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
