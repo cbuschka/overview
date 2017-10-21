@@ -1,0 +1,79 @@
+.BlockContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+}
+
+.BlockContainerBlockWrapper {
+    display: inline-flex;
+}
+
+.GroupBlock {
+    text-align: left;
+    margin: 10px;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.EnvBlock {
+    background-color: white;
+    color: black;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.EnvBlockTitle {
+    display: block;
+}
+
+.ServiceBlock {
+    display: inline-block;
+    background-color: #efefef;
+    margin: 4px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.ServiceBlockTitle {
+    display: block;
+}
+
+.ServiceBlock.single {
+    background-color: inherit;
+    margin: 0;
+    padding: 0;
+}
+.ServiceBlock.single .ServiceBlockTitle {
+    display: none;
+}
+
+.InstanceBlock {
+    border: 2px solid gray;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.InstanceBlock.single {
+}
+
+.InstanceBlock.statusOk {
+    border-color: green;
+    background-color: #9bff9b;
+}
+
+.InstanceBlock.statusAlert {
+    border-color: orange;
+    background-color: yellow;
+}
+
+.InstanceBlock.statusDown {
+    color: white;
+    border-color: black;
+    background-color: red;
+}

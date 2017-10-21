@@ -6,4 +6,3 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome-webpack';
 
 ReactDOM.render(<App/>, document.getElementById('root'));
-

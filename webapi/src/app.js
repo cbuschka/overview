@@ -5,9 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
+var console = require('debug');
+var dataModel = require('./data-model');
+var CheckProcessor = require('./check-processor');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -19,30 +21,46 @@ app.set('view engine', 'hbs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/index', index);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+app.registerEndpoints = function () {
+    app.ws('/ws', function (ws, req) {
+        /*
+        ws.on('message', function (msg) {
+        });
+        */
+    });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    app.use(function (req, res, next) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    });
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+    app.use(function (err, req, res, next) {
+        // set locals, only providing error in development
+        res.locals.message = err.message;
+        res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+        // render the error page
+        res.status(err.status || 500);
+        res.render('error');
+    });
+
+    dataModel.addListener(function () {
+        var data = dataModel.getData();
+        var json = JSON.stringify(data);
+
+        app.expressWs.getWss('/ws').clients.forEach(function (client) {
+            client.send(json)
+        })
+    });
+    new CheckProcessor(dataModel).start();
+}
 
 module.exports = app;
